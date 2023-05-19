@@ -1,0 +1,75 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<section class="content">
+    <div class="logosection">
+        <a href="/">
+            <img src="/static/img/TECHISLOGO.png" alt="" style="width:60px;" />
+        </a>
+        <h3>Edit</h3>
+    </div>
+
+    <section class="editpage">
+        <section class="post_form2">
+            <form action="/edit/{{post.id}}/"
+            method="POST"
+            enctype="multipart/form-data">
+
+             {% csrf_token %}
+            <div class="form-container6">
+            
+             <input type="text" id="editname" name="name" placeholder="Your name" value="{{post.name}}" required />
+
+             <textarea name="body" id="editbody" name="name" placeholder="What's Happening?" value="{{post.body}}" required></textarea>
+            </div>
+
+            <div class="userimg1">
+                <img class="edituserimg" src="{% static 'img/chicken.png' %}" height="53"
+                width="53" />
+            </div>
+
+               
+                <!--<label for="{{post.name}}"></label>-->
+            <div class="sectionline"></div>
+                
+                <div class="bottomarea">
+                        <input type="text" id="borderbox2" />
+
+
+                        <div class="buttonscanupd">
+                            
+
+                                <input type="file" name="image" id="editfile"/>
+                                {% if post.image.url %}
+                                <img class="post-img" src="{{ post.image.url }}" style="width: 100%" />
+                                {% endif %}
+
+                                <div class="updtcancl" id="updtcancl">
+
+                                    
+                                <!--<label for="btn btn-gray" id="btnlabel1">Cancel</label>-->
+                                    <a href="/" class="btn btn-gray" id="clickbtns1">Cancel</a> 
+                                    
+                                 <!--<label for="clickbtns" id="btnlabel2">Update</label>-->
+                                    <input id="clickbtns2" type="submit" value="Update" />    
+                                   
+                                    
+
+                                </div>
+                            
+                        </div>
+                </div>
+                    <!--<input class="cancel-button" type="button" id ="delete" value="Cancel" />-->
+
+                     
+                
+                </div>
+            </form>
+            <section class="grayarea2" id="grayarea2"></section>
+
+            
+        </section>
+    </section>
+    {% endblock %}
+</section>
+
+
+

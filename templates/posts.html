@@ -1,0 +1,160 @@
+{% extends "base.html" %} {% block content %}
+
+{% load static %}
+
+
+
+<section class="content">
+
+    <section class="logosection" id="logosection">
+        <img id="headerlogo" src="{% static 'img/TECHISLOGO.png' %}">
+        <h1>Home</h1>
+    </section>
+
+
+    <!-- THIS IS THE TOP SECTION WHERE NAME, TEXT AND SUBMIT/POST BUTTON GOES -->
+
+    <section class="post_form">
+        <form action="/" method="POST" id="formsection" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="userimg1" id="userimg1"><img class="menuicon" src="{% static 'img/chicken.png' %}" height="53"
+                    width="53" />
+            </div>
+            <div class="form-container">
+                <input type="text" id="name" name="name" placeholder="Your name" required />
+                <textarea name="body" id="body" name="name" placeholder="What's Happening?" required></textarea>
+
+
+                <div class="form-container3">
+                    <!--This is the lline above choose file button section-->
+                    <section class="formsectioned" id="formsectioned"></section>
+
+
+                    <!--This is the border box that goes around the file not chosen text-->
+                    <input type=text id="borderbox" />
+
+
+                    <!--I used the 'z-index' attribute in styles to hide the actual 'choose file button' behind the 'label' attribute & it lets us customize our own button-->
+                    <input type="file" id="file" name="images" />
+                
+                    
+                </div>
+
+                <input type="submit" id="postnow" value="Tweet" />
+            </div>
+        </form>
+
+    </section>
+
+
+    <section class="grayarea" id="grayarea"></section>
+
+
+
+
+
+    <!-- THIS IS THE SECTION WHERE THE POST LIST ARE DISPLAYED -->
+
+    <section class='posts' id="postedlist">
+
+        {% if tweets.count == 0 %}
+        <p class="p-3">There is no Tweet now.</p>
+        {% else %}
+
+        <ul>
+
+            {% for post in posts %}
+
+            <li>
+
+
+
+
+                <div class="mainpost">
+                    <div class="logo">
+                        <img src="{%static 'img/chicken.png' %}" alt="">
+                    </div>
+
+                    <div class="namebody">
+                        <div class="nametime">
+                            <div class="name">{{ post.name }}</div>
+                            <div class="datetime">
+                                <div class="date">{{ post.created_at }}</div>
+                            </div>
+                        </div>
+
+
+                        <div class="listpost">
+                            <div class="listbody">{{ post.body }}</div>
+                        </div>
+
+
+
+
+                        <div class="image">
+                            {% if post.images.url%}
+                            <img src="{{post.images.url}}" id="postimg" alt="" />
+                            {% endif %}
+                        </div>
+
+
+
+
+                        <div class="form-container4" id="form-container4">
+                            <div class="likes">
+                                <a href="/like/{{post.id}}" style="text-decoration: overline;"><img
+                                        src="{% static 'img/heart.png' %}" id="mylikes" alt style="width: 22px; "></a>
+                            </div>
+                            <div class="like count">{{post.like}}</div>
+                        </div>
+                    </div>
+                </div>
+                <img class="menu_icon js-menu-icon" src="{%static 'img/option.png' %}" />
+                <div class="menu" id="del_edit">
+                    
+                        <div class="popover-arrow__arrow popover-arrow__arrow--tc"></div>
+                
+                    <p class="editdelete">
+                        <input type="button" id="editbutton" value="Edit"></input>
+                        <label for="Edit"><a href="/edit/{{post.id}}" id="edit">Edit</a></label>
+                        <br>
+                        <a href="/delete/{{post.id}}" id="delete">Delete</a>
+                    </p>
+                </div>
+
+
+
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+        
+
+
+
+
+
+
+
+
+        {% endif %}
+
+
+
+
+    </section>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/posts.js' %}"></script>
+
+</section>
+
+
+
+{% endblock %}
